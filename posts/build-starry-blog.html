@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>从零搭建一座星空博客：我的静态站点实践 · 星海 Notes</title>
+<meta name="description" content="记录【星海 Notes】从一张白纸到上线的全过程：为什么选择静态站点生成、技术栈如何取舍、以及 SEO 与性能的底线指标。">
+<meta name="keywords" content="建站,前端">
+<link rel="canonical" href="https://stella.dhow.ink/posts/build-starry-blog.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="星海 Notes">
+<meta property="og:title" content="从零搭建一座星空博客：我的静态站点实践">
+<meta property="og:description" content="记录【星海 Notes】从一张白纸到上线的全过程：为什么选择静态站点生成、技术栈如何取舍、以及 SEO 与性能的底线指标。">
+<meta property="og:url" content="https://stella.dhow.ink/posts/build-starry-blog.html">
+<meta property="og:image" content="https://stella.dhow.ink/assets/img/cover-nebula.svg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="从零搭建一座星空博客：我的静态站点实践">
+<meta name="twitter:description" content="记录【星海 Notes】从一张白纸到上线的全过程：为什么选择静态站点生成、技术栈如何取舍、以及 SEO 与性能的底线指标。">
+<meta name="twitter:image" content="https://stella.dhow.ink/assets/img/cover-nebula.svg">
+<meta name="theme-color" content="#04060b">
+<link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
+<link rel="stylesheet" href="../assets/css/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "从零搭建一座星空博客：我的静态站点实践", "description": "记录【星海 Notes】从一张白纸到上线的全过程：为什么选择静态站点生成、技术栈如何取舍、以及 SEO 与性能的底线指标。", "datePublished": "2026-08-15", "author": {"@type": "Person", "name": "dhow"}, "mainEntityOfPage": "https://stella.dhow.ink/posts/build-starry-blog.html", "keywords": "建站,前端", "wordCount": 270}</script>
+</head>
+<body>
+<canvas id="starfield" aria-hidden="true"></canvas>
+<div class="grain" aria-hidden="true"></div>
+<header class="site-header">
+  <a class="brand" href="../index.html">
+    <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path fill="#c9a86a" d="M12 1l2.4 7.6L22 11l-7.6 2.4L12 21l-2.4-7.6L2 11l7.6-2.4z"/></svg>
+    <span>星海 Notes</span>
+  </a>
+  <nav class="site-nav" aria-label="主导航">
+    <a href="../index.html">首页</a>
+    <a href="../tags.html">标签</a>
+    <a href="../about.html">关于</a>
+  </nav>
+</header>
+<main class="container">
+<article class="post">
+  <header class="post-header">
+    <h1>从零搭建一座星空博客：我的静态站点实践</h1>
+    <p class="post-meta">发布于 2026-08-15 · 约 1 分钟（270 字） · <a class="tag" href="../tag/%E5%BB%BA%E7%AB%99.html">建站</a> <a class="tag" href="../tag/%E5%89%8D%E7%AB%AF.html">前端</a></p>
+  </header>
+  <div class="post-layout">
+    <div class="post-content"><h2 id="为什么选静态站点">为什么选静态站点</h2>
+<p>博客的第一性原理是<strong>内容被阅读</strong>。动态框架很酷，但对一个以文字为主的站点来说，静态 HTML 才是正解：</p>
+<ul>
+<li>打开即所得，没有白屏等待</li>
+<li>托管成本几乎为零，Cloudflare Pages / GitHub Pages 随便选</li>
+<li>搜索引擎爬虫看到的就是完整内容，SEO 天然友好</li>
+</ul>
+<blockquote>
+<p>不要温和地走进那个良夜。——狄兰·托马斯</p>
+</blockquote>
+<h2 id="技术栈一览">技术栈一览</h2>
+<table>
+<thead>
+<tr>
+<th>层</th>
+<th>选型</th>
+<th>理由</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>生成器</td>
+<td>Python + Markdown</td>
+<td>自己掌控每一寸 HTML</td>
+</tr>
+<tr>
+<td>高亮</td>
+<td>Pygments</td>
+<td>服务端渲染，零 JS 开销</td>
+</tr>
+<tr>
+<td>部署</td>
+<td>静态托管 + CDN</td>
+<td>全球秒开</td>
+</tr>
+<tr>
+<td>搜索</td>
+<td>纯前端索引</td>
+<td>小数据量足够快</td>
+</tr>
+</tbody>
+</table>
+<h2 id="构建脚本长什么样">构建脚本长什么样</h2>
+<p>核心逻辑不到两百行，伪代码如下：</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">markdown</span>
+
+<span class="n">md</span> <span class="o">=</span> <span class="n">markdown</span><span class="o">.</span><span class="n">Markdown</span><span class="p">(</span><span class="n">extensions</span><span class="o">=</span><span class="p">[</span><span class="s2">"extra"</span><span class="p">,</span> <span class="s2">"codehilite"</span><span class="p">,</span> <span class="s2">"toc"</span><span class="p">])</span>
+<span class="n">html</span> <span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">post_text</span><span class="p">)</span>
+<span class="n">toc</span> <span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="n">toc</span>  <span class="c1"># 自动生成文章目录</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="c1">// 客户端搜索：fetch 索引，前端过滤</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">hits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">index</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">p</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">p</span><span class="p">.</span><span class="nx">title</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="nx">kw</span><span class="p">));</span>
+</code></pre></div>
+
+<h2 id="性能的底线指标">性能的底线指标</h2>
+<p>我给自己定了三条红线：</p>
+<ol>
+<li>Lighthouse 性能评分 ≥ 90</li>
+<li>移动端首屏 ≤ 2 秒</li>
+<li>所有图片懒加载 + WebP/SVG</li>
+</ol>
+<p>星空再美，也不能让读者等着看加载动画。</p>
+<h2 id="下一步">下一步</h2>
+<ul>
+<li>[ ] 接入评论系统</li>
+<li>[ ] RSS 订阅输出</li>
+<li>[x] sitemap 与结构化数据</li>
+</ul></div>
+    <aside class="toc"><p class="toc-title">目录</p><div class="toc">
+<ul>
+<li><a href="#为什么选静态站点">为什么选静态站点</a></li>
+<li><a href="#技术栈一览">技术栈一览</a></li>
+<li><a href="#构建脚本长什么样">构建脚本长什么样</a></li>
+<li><a href="#性能的底线指标">性能的底线指标</a></li>
+<li><a href="#下一步">下一步</a></li>
+</ul>
+</div>
+</aside>
+  </div>
+  <div class="share">
+  <span>分享：</span>
+  <button class="share-btn" data-copy="https://stella.dhow.ink/posts/build-starry-blog.html">复制链接</button>
+  <a class="share-btn" target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?url=https%3A//stella.dhow.ink/posts/build-starry-blog.html&text=%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BA%E4%B8%80%E5%BA%A7%E6%98%9F%E7%A9%BA%E5%8D%9A%E5%AE%A2%EF%BC%9A%E6%88%91%E7%9A%84%E9%9D%99%E6%80%81%E7%AB%99%E7%82%B9%E5%AE%9E%E8%B7%B5">X</a>
+  <a class="share-btn" target="_blank" rel="noopener" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A//stella.dhow.ink/posts/build-starry-blog.html">LinkedIn</a>
+</div>
+  <nav class="prev-next"><span></span><a class="pn-item pn-right" href="posts/interstellar-science.html"><span class="pn-label">下一篇（更早）→</span><span class="pn-title">《星际穿越》里的科学：时间、引力与爱</span></a></nav>
+</article>
+</main>
+<footer class="site-footer">
+  <p>© 2026 dhow · 星海 Notes · <a href="mailto:48230767@qq.com">48230767@qq.com</a></p>
+  <p class="footer-sub">星辰大海是远方，Notes 是脚下 · <a href="../sitemap.xml">Sitemap</a></p>
+</footer>
+<script src="../assets/js/stars.js" defer></script>
+</body>
+</html>
