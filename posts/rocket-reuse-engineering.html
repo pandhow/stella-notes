@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>火箭复用技术的来龙去脉：从一次性到航班化 · 星海 Notes</title>
+<meta name="description" content="火箭为什么曾经用完就扔？复用到底难在哪？从降落伞、航天飞机到垂直回收，梳理复用技术三条路线的工程逻辑。">
+<meta name="keywords" content="航天,技术">
+<link rel="canonical" href="https://stella.dhow.ink/posts/rocket-reuse-engineering.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="星海 Notes">
+<meta property="og:title" content="火箭复用技术的来龙去脉：从一次性到航班化">
+<meta property="og:description" content="火箭为什么曾经用完就扔？复用到底难在哪？从降落伞、航天飞机到垂直回收，梳理复用技术三条路线的工程逻辑。">
+<meta property="og:url" content="https://stella.dhow.ink/posts/rocket-reuse-engineering.html">
+<meta property="og:image" content="https://stella.dhow.ink/assets/img/og-cover.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="火箭复用技术的来龙去脉：从一次性到航班化">
+<meta name="twitter:description" content="火箭为什么曾经用完就扔？复用到底难在哪？从降落伞、航天飞机到垂直回收，梳理复用技术三条路线的工程逻辑。">
+<meta name="twitter:image" content="https://stella.dhow.ink/assets/img/og-cover.png">
+<meta name="theme-color" content="#04060b">
+<link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
+<link rel="stylesheet" href="../assets/css/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "火箭复用技术的来龙去脉：从一次性到航班化", "description": "火箭为什么曾经用完就扔？复用到底难在哪？从降落伞、航天飞机到垂直回收，梳理复用技术三条路线的工程逻辑。", "datePublished": "2026-08-05", "author": {"@type": "Person", "name": "dhow"}, "mainEntityOfPage": "https://stella.dhow.ink/posts/rocket-reuse-engineering.html", "keywords": "航天,技术", "wordCount": 444}</script>
+</head>
+<body>
+<canvas id="starfield" aria-hidden="true"></canvas>
+<div class="grain" aria-hidden="true"></div>
+<header class="site-header">
+  <a class="brand" href="../index.html">
+    <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path fill="#c9a86a" d="M12 1l2.4 7.6L22 11l-7.6 2.4L12 21l-2.4-7.6L2 11l7.6-2.4z"/></svg>
+    <span>星海 Notes</span>
+  </a>
+  <nav class="site-nav" aria-label="主导航">
+    <a href="../index.html">首页</a>
+    <a href="../tags.html">标签</a>
+    <a href="../about.html">关于</a>
+  </nav>
+</header>
+<main class="container">
+<article class="post">
+  <header class="post-header">
+    <h1>火箭复用技术的来龙去脉：从一次性到航班化</h1>
+    <p class="post-meta">发布于 2026-08-05 · 约 2 分钟（444 字） · <a class="tag" href="../tag/%E8%88%AA%E5%A4%A9.html">航天</a> <a class="tag" href="../tag/%E6%8A%80%E6%9C%AF.html">技术</a></p>
+  </header>
+  <div class="post-layout">
+    <div class="post-content"><h2 id="一次性火箭的账">一次性火箭的账</h2>
+<p>传统火箭像一辆开到目的地就报废的卡车——箭体成本占发射成本的大头，却只能使用一次。复用的本质，是把"成本中心"变成"可摊销资产"。</p>
+<h2 id="三条技术路线">三条技术路线</h2>
+<h3 id="路线一降落伞回收">路线一：降落伞回收</h3>
+<p>最直观的方案。发动机或助推器分离后开伞，溅落海面或由直升机空中勾取。</p>
+<ul>
+<li>优点：技术门槛最低</li>
+<li>缺点：海水腐蚀、落点不可控、翻新成本高</li>
+</ul>
+<h3 id="路线二有翼水平返回">路线二：有翼水平返回</h3>
+<p>航天飞机是这条路线的巅峰，也是它教训的集合：复用是真的，但每次翻新的工作量远超预期，"航班化"的梦想被维护成本拖垮。</p>
+<h3 id="路线三动力垂直回收">路线三：动力垂直回收</h3>
+<p>火箭自己点火减速、定点着陆。难点在于：</p>
+<ol>
+<li><strong>深度节流</strong>：发动机要在极低推力下稳定工作</li>
+<li><strong>制导控制</strong>：超音速再入时的姿态控制如同"在风暴中让铅笔立起来"</li>
+<li><strong>结构冗余</strong>：栅格舵、着陆腿都要在反复使用中保持可靠</li>
+</ol>
+<div class="codehilite"><pre><span></span><code>上升 → 一二级分离 → 一级调头 → 再入点火 → 着陆点火 → 垂直着陆
+</code></pre></div>
+
+<h2 id="复用不只是省钱">复用不只是省钱</h2>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>一次性</th>
+<th>可复用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>成本模型</td>
+<td>每次重算</td>
+<td>摊销 + 翻新</td>
+</tr>
+<tr>
+<td>发射节奏</td>
+<td>以月计</td>
+<td>以周甚至天计</td>
+</tr>
+<tr>
+<td>可靠性逻辑</td>
+<td>单次极致</td>
+<td>多次统计</td>
+</tr>
+</tbody>
+</table>
+<p>更深层的意义在于：复用让发射从"事件"变成"运营"，这才是航天工业化的真正门槛。</p>
+<h2 id="写在最后">写在最后</h2>
+<p>复用没有银弹，三条路线各有适用场景。真正重要的是工程文化——把每一次回收都当作数据，把每一次失败都归零到底。</p></div>
+    <aside class="toc"><p class="toc-title">目录</p><div class="toc">
+<ul>
+<li><a href="#一次性火箭的账">一次性火箭的账</a></li>
+<li><a href="#三条技术路线">三条技术路线</a><ul>
+<li><a href="#路线一降落伞回收">路线一：降落伞回收</a></li>
+<li><a href="#路线二有翼水平返回">路线二：有翼水平返回</a></li>
+<li><a href="#路线三动力垂直回收">路线三：动力垂直回收</a></li>
+</ul>
+</li>
+<li><a href="#复用不只是省钱">复用不只是省钱</a></li>
+<li><a href="#写在最后">写在最后</a></li>
+</ul>
+</div>
+</aside>
+  </div>
+  <div class="share">
+  <span>分享：</span>
+  <button class="share-btn" data-copy="https://stella.dhow.ink/posts/rocket-reuse-engineering.html">复制链接</button>
+  <a class="share-btn" target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?url=https%3A//stella.dhow.ink/posts/rocket-reuse-engineering.html&text=%E7%81%AB%E7%AE%AD%E5%A4%8D%E7%94%A8%E6%8A%80%E6%9C%AF%E7%9A%84%E6%9D%A5%E9%BE%99%E5%8E%BB%E8%84%89%EF%BC%9A%E4%BB%8E%E4%B8%80%E6%AC%A1%E6%80%A7%E5%88%B0%E8%88%AA%E7%8F%AD%E5%8C%96">X</a>
+  <a class="share-btn" target="_blank" rel="noopener" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A//stella.dhow.ink/posts/rocket-reuse-engineering.html">LinkedIn</a>
+</div>
+  <nav class="prev-next"><a class="pn-item" href="posts/interstellar-science.html"><span class="pn-label">← 上一篇（更新）</span><span class="pn-title">《星际穿越》里的科学：时间、引力与爱</span></a><a class="pn-item pn-right" href="posts/markdown-writing-guide.html"><span class="pn-label">下一篇（更早）→</span><span class="pn-title">Markdown 写作指南：从标题到代码高亮</span></a></nav>
+</article>
+</main>
+<footer class="site-footer">
+  <p>© 2026 dhow · 星海 Notes · <a href="mailto:48230767@qq.com">48230767@qq.com</a></p>
+  <p class="footer-sub">星辰大海是远方，Notes 是脚下 · <a href="../sitemap.xml">Sitemap</a></p>
+</footer>
+<script src="../assets/js/stars.js" defer></script>
+</body>
+</html>
