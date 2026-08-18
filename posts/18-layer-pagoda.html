@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>星海 Notes 第二期 · 18 层宝塔：为什么单点突破赢不了</title>
+<style>
+  :root{
+    --bg:#eef1f7; --card:#ffffff; --ink:#1f2733; --sub:#5b6675; --line:#dde3ef;
+    --deep:#0c1b33; --deep2:#13294d; --deep3:#1a3a6e;
+    --accent:#2f6bff; --warn:#e0533a; --gold:#c9a14a; --gold2:#e7b94e;
+    --hughes:#e0533a; --ascend:#27a98a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:-apple-system,"PingFang SC","Microsoft YaHei",Helvetica,Arial,sans-serif;line-height:1.88;font-size:17px;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:780px;margin:0 auto;padding:0 20px 90px}
+
+  /* ============ 封面（升级：星点+网格+对称装饰） ============ */
+  .cover{
+    background:linear-gradient(165deg,#081528 0%,#0e2347 52%,#17366e 100%);
+    color:#fff;border-radius:0 0 26px 26px;padding:52px 34px 44px;margin-bottom:38px;
+    position:relative;overflow:hidden;
+  }
+  .cover:before{content:"";position:absolute;inset:0;
+    background-image:radial-gradient(circle at 12% 18%,rgba(231,185,78,.10) 0,transparent 40%),
+                     radial-gradient(circle at 88% 80%,rgba(47,107,255,.12) 0,transparent 45%);
+    pointer-events:none}
+  .cover .grid{position:absolute;inset:0;opacity:.18;
+    background-image:linear-gradient(rgba(255,255,255,.4) 1px,transparent 1px),
+                     linear-gradient(90deg,rgba(255,255,255,.4) 1px,transparent 1px);
+    background-size:42px 42px;mask-image:linear-gradient(180deg,transparent,black 40%,black 60%,transparent);
+    -webkit-mask-image:linear-gradient(180deg,transparent,black 40%,black 60%,transparent)}
+  .cover .star{position:absolute;border-radius:50%;background:#e8efff}
+  .cover .s1{width:3px;height:3px;top:40px;left:140px;opacity:.6}
+  .cover .s2{width:2px;height:2px;top:96px;left:560px;opacity:.7}
+  .cover .s3{width:4px;height:4px;top:170px;left:660px;opacity:.45}
+  .cover .s4{width:2px;height:2px;top:240px;left:90px;opacity:.55}
+  .cover .badge{display:inline-block;font-size:12px;letter-spacing:4px;color:var(--gold2);
+    border:1.4px solid rgba(231,185,78,.55);border-radius:999px;padding:6px 18px;margin-bottom:22px;position:relative}
+  .cover h1{font-size:34px;line-height:1.32;font-weight:800;margin-bottom:16px;letter-spacing:.5px;position:relative}
+  .cover .lead{font-size:15.5px;color:#c9d6ee;line-height:1.78;position:relative;max-width:640px}
+  .cover .meta{margin-top:24px;display:flex;gap:10px;flex-wrap:wrap;font-size:12px;color:#9fb0cc;position:relative}
+  .cover .meta span{background:rgba(255,255,255,.08);padding:5px 12px;border-radius:8px;border:1px solid rgba(255,255,255,.06)}
+  .cover .mirror{margin-top:28px;display:flex;gap:10px;position:relative}
+  .cover .mirror .half{flex:1;padding:14px 16px;border-radius:12px;font-size:12.5px;line-height:1.55}
+  .cover .mirror .h{background:rgba(224,83,58,.16);border:1px solid rgba(224,83,58,.45);color:#ffc9bd}
+  .cover .mirror .a{background:rgba(39,169,138,.16);border:1px solid rgba(39,169,138,.45);color:#bcebd8}
+  .cover .mirror b{display:block;font-size:13px;margin-bottom:4px}
+  .cover .mirror .h b{color:#ff9d8a}
+  .cover .mirror .a b{color:#7fe0bf}
+
+  /* ============ 章节序号（大号中文数字） ============ */
+  .sec{margin:48px 0 18px;display:flex;align-items:baseline;gap:14px}
+  .sec .num{font-size:38px;font-weight:800;color:var(--gold);line-height:1;font-family:"Georgia",serif;letter-spacing:-1px}
+  .sec .t{font-size:23px;font-weight:800;color:var(--deep2);border:none;padding:0;flex:1;border-bottom:2px solid var(--line);padding-bottom:8px}
+  p{margin:15px 0;color:var(--ink)}
+  .sub{color:var(--sub)}
+  strong.k{color:var(--deep2);font-weight:700}
+  strong.w{color:var(--warn);font-weight:700}
+  strong.g{color:var(--gold);font-weight:700}
+
+  /* ============ pull quote（大号引文） ============ */
+  .pull{
+    margin:30px 0;padding:26px 28px 26px 36px;
+    background:linear-gradient(135deg,#fffdf6,#faf7ee);
+    border-left:5px solid var(--gold);border-radius:0 14px 14px 0;
+    font-size:21px;line-height:1.55;font-weight:700;color:var(--deep2);
+    position:relative;
+  }
+  .pull:before{content:"“";position:absolute;left:8px;top:0;font-size:54px;color:var(--gold);opacity:.35;font-family:Georgia,serif;line-height:1}
+  .pull .src{display:block;margin-top:12px;font-size:13px;color:var(--sub);font-weight:400;font-style:italic}
+
+  /* ============ 镜像对照卡（休斯 vs 昇腾） ============ */
+  .mirror-card{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:28px 0}
+  .mirror-card .col{border-radius:14px;padding:20px 18px;font-size:14.5px;line-height:1.7}
+  .mirror-card .h{background:linear-gradient(160deg,#fff5f2,#ffe9e3);border:1px solid #f3d4cb}
+  .mirror-card .a{background:linear-gradient(160deg,#f0fbf6,#dff5ec);border:1px solid #c3e6d6}
+  .mirror-card .tag{font-size:11px;letter-spacing:2px;font-weight:800;padding:3px 10px;border-radius:6px;display:inline-block;margin-bottom:10px}
+  .mirror-card .h .tag{background:var(--hughes);color:#fff}
+  .mirror-card .a .tag{background:var(--ascend);color:#fff}
+  .mirror-card h4{font-size:16px;color:var(--deep2);margin-bottom:8px;font-weight:800}
+  .mirror-card .li{margin:5px 0;color:#3a4456}
+  .mirror-card .li b{color:var(--deep2)}
+
+  /* ============ 18 层宝塔可视化 ============ */
+  .pagoda{margin:32px 0 12px;padding:24px 18px 16px;background:linear-gradient(180deg,#0c1b33,#13294d);border-radius:18px;position:relative;overflow:hidden}
+  .pagoda .title{color:var(--gold2);font-size:13px;letter-spacing:3px;text-align:center;margin-bottom:14px;font-weight:700}
+  .pagoda .layers{display:flex;flex-direction:column;gap:3px;align-items:center}
+  .pagoda .ly{padding:5px 14px;border-radius:5px;font-size:12.5px;color:#dbe4f3;text-align:center;width:88%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08)}
+  .pagoda .ly.top{width:34%;background:rgba(231,185,78,.18);border-color:rgba(231,185,78,.4);color:#ffe9b0;font-weight:700}
+  .pagoda .ly.mid{width:62%}
+  .pagoda .ly.bot{width:96%}
+  .pagoda .cap{margin-top:14px;font-size:11.5px;color:#8fa3c8;text-align:center;line-height:1.5}
+
+  /* ============ 数据卡 ============ */
+  .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:24px 0}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 12px;text-align:center}
+  .stat .n{font-size:24px;font-weight:800;color:var(--warn);line-height:1.1}
+  .stat .n.g{color:var(--ascend)}
+  .stat .n.b{color:var(--deep2)}
+  .stat .l{font-size:12px;color:var(--sub);margin-top:5px;line-height:1.4}
+
+  /* ============ 三锁对比（休斯三锁 vs 昇腾三贯通） ============ */
+  .vs3{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:24px 0}
+  .vs3 .blk{border-radius:12px;padding:14px 16px;font-size:14px;line-height:1.7}
+  .vs3 .blk.h{background:#fff6f3;border:1px solid #f3d4cb}
+  .vs3 .blk.a{background:#f0fbf6;border:1px solid #c3e6d6}
+  .vs3 .blk b{display:block;margin-bottom:4px;font-size:13px}
+  .vs3 .blk.h b{color:var(--hughes)}
+  .vs3 .blk.a b{color:var(--ascend)}
+
+  /* ============ 引用块 ============ */
+  .quote{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:12px;padding:16px 20px;margin:22px 0;font-size:16px;color:var(--deep2);font-style:italic}
+  .quote .src{display:block;margin-top:8px;font-size:13px;color:var(--sub);font-style:normal}
+
+  /* ============ timeline 昇腾史 ============ */
+  .timeline{position:relative;margin:26px 0 10px;padding-left:24px}
+  .timeline:before{content:"";position:absolute;left:7px;top:4px;bottom:4px;width:2px;background:var(--line)}
+  .timeline .t{position:relative;margin:0 0 16px}
+  .timeline .t:before{content:"";position:absolute;left:-21px;top:6px;width:11px;height:11px;border-radius:50%;background:var(--ascend);border:2px solid #fff;box-shadow:0 0 0 2px var(--ascend)}
+  .timeline .t.red:before{background:var(--hughes);box-shadow:0 0 0 2px var(--hughes)}
+  .timeline .t .yr{font-weight:800;color:var(--deep2);margin-right:8px}
+  .timeline .t .d{color:var(--ink);font-size:15px;line-height:1.7}
+  .timeline .t .d b{color:var(--deep2)}
+
+  /* ============ 结语 ============ */
+  .end{margin-top:42px;padding:28px 26px;background:linear-gradient(160deg,#0c1b33,#13294d);color:#dbe4f3;border-radius:18px;font-size:16px;line-height:1.85;position:relative;overflow:hidden}
+  .end:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 85% 20%,rgba(231,185,78,.15),transparent 50%)}
+  .end b{color:var(--gold2);position:relative}
+  .end .sig{margin-top:18px;font-size:13px;color:#8fa3c8;position:relative}
+  .footer{margin-top:26px;font-size:12.5px;color:var(--sub);text-align:center;line-height:1.7}
+  @media(max-width:600px){
+    .mirror-card,.vs3{grid-template-columns:1fr}
+    .stat-row{grid-template-columns:1fr 1fr}
+    .cover h1{font-size:26px}
+    .sec .num{font-size:30px}
+    .pull{font-size:18px}
+  }
+</style>
+<meta name="description" content="休斯死于系统失配，昇腾生于系统协同——同一道题的两个解法。差别不在技术，在打通 18 层的能力。">
+<meta name="keywords" content="航天,产业观察">
+<link rel="canonical" href="https://stella.dhow.ink/posts/18-layer-pagoda.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="星海 Notes">
+<meta property="og:title" content="18 层宝塔：为什么单点突破赢不了">
+<meta property="og:description" content="休斯死于系统失配，昇腾生于系统协同——同一道题的两个解法。差别不在技术，在打通 18 层的能力。">
+<meta property="og:url" content="https://stella.dhow.ink/posts/18-layer-pagoda.html">
+<meta property="og:image" content="https://stella.dhow.ink/assets/img/features/cover-18layer.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="18 层宝塔：为什么单点突破赢不了">
+<meta name="twitter:description" content="休斯死于系统失配，昇腾生于系统协同——同一道题的两个解法。差别不在技术，在打通 18 层的能力。">
+<meta name="twitter:image" content="https://stella.dhow.ink/assets/img/features/cover-18layer.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "18 层宝塔：为什么单点突破赢不了", "description": "休斯死于系统失配，昇腾生于系统协同——同一道题的两个解法。差别不在技术，在打通 18 层的能力。", "datePublished": "2026-08-10", "author": {"@type": "Person", "name": "dhow"}, "mainEntityOfPage": "https://stella.dhow.ink/posts/18-layer-pagoda.html", "keywords": "航天,产业观察"}</script>
+</head>
+<body>
+
+<div class="wrap">
+
+<!-- ============ 封面 ============ -->
+<div class="cover">
+  <div class="grid"></div>
+  <span class="star s1"></span><span class="star s2"></span><span class="star s3"></span><span class="star s4"></span>
+  <div class="badge">星海 NOTES · 第二期</div>
+  <h1>18 层宝塔：<br>为什么单点突破赢不了</h1>
+  <div class="lead">休斯死于系统失配，昇腾生于系统协同——同一道题的两个解法。差别不在技术，在打通 18 层的能力。</div>
+  <div class="meta">
+    <span>选题：廖恒访谈 / 半导体</span>
+    <span>角度：系统论</span>
+    <span>2026-08-10</span>
+  </div>
+  <div class="mirror">
+    <div class="half h"><b>休斯（上期）</b>看得到趋势，死在系统里</div>
+    <div class="half a"><b>昇腾（本期）</b>单点落后，生于系统协同</div>
+  </div>
+</div>
+
+<!-- ============ 导语 ============ -->
+<p>上一期，我们讲休斯：一家看得到趋势的公司，死在系统里——它 2021 年就在为低轨星座 OneWeb 造设备，却把最先进的 JUPITER 3 押在被淘汰的 GEO 消费宽带上，最后走进破产法庭。</p>
+<p>这一期，换同一道题的另一个解法：一家单芯片拼不过对手的公司，怎么靠系统协同活下来——并且活得让对手忌惮。</p>
+<p>讲这件事的人是廖恒。华为 Fellow、半导体首席科学家、昇腾核心奠基人。14 岁进清华少年班，普林斯顿博后。他用近 5 小时访谈，把 AI 芯片的胜负手拆成了一座 <strong class="k">18 层的宝塔</strong>。</p>
+<p>两件事其实是同一道题：<strong class="k">当行业范式转移时，单点优势不够用了。</strong></p>
+
+<!-- ============ 壹 ============ -->
+<div class="sec"><span class="num">壹</span><span class="t">18 层：一个反英雄主义的框架</span></div>
+
+<p>廖恒把半导体产业链拆成 18 层。从下往上：基础理论、能源、采矿原料、硅材料、晶体管设计、晶圆制造、光刻设备、先进封装、芯片架构、编译器与运行时、算子切分、量化与低精度、训练方法、基础大模型、KV Cache 与推理、Agent 框架、用户产品、商业应用。</p>
+
+<p>然后他甩出一句杀伤力极强的话：<strong class="k">产业链整体性能，由最短的那层决定。</strong></p>
+
+<div class="pull">
+  各层深度绑定、互相制约。你在一层做到世界一流没用——只要第 13 层是短板，整座塔就矮在那一层。
+  <span class="src">—— 廖恒，短板定律</span>
+</div>
+
+<!-- 嵌入 18 层宝塔可视化 -->
+<div class="pagoda">
+  <div class="title">半 导 体 · 18 层 宝 塔</div>
+  <div class="layers">
+    <div class="ly top">商业应用</div>
+    <div class="ly top">用户产品 · Agent 框架</div>
+    <div class="ly mid">KV Cache / 推理 · 基础大模型 · 训练方法</div>
+    <div class="ly mid">量化低精度 · 算子切分 · 编译器运行时</div>
+    <div class="ly bot">芯片架构 · 先进封装 · 光刻设备 · 晶圆制造 · 晶体管设计 · 硅材料 · 采矿原料 · 能源 · 基础理论</div>
+  </div>
+  <div class="cap">短板定律：18 层里最短的那层，决定整座塔的高度</div>
+</div>
+
+<p>这个框架真正狠的地方，不在技术，在它<strong class="k">拆穿了"国产替代"这个口号</strong>。</p>
+<p>过去这些年我们习惯了某种叙事：某一项被卡脖子，举国攻坚，搞出来了，就赢了。但 18 层宝塔说——你不能在一层做到世界一流就赢，你得 18 层都不掉队。这是一座<strong class="w">反英雄主义的框架</strong>。它否认单点天才救国论。</p>
+<p>廖恒还点出一条更扎心的：18 层之间，迭代速度差着两个量级。上层软件可以小时级改，底层硬件一次流片 18 个月、烧 2-3 亿。<strong class="k">所以最优策略不是硬磕底层，是用上层快速试错，反向校准底层方向。</strong>——这条反过来解释了，为什么昇腾宁可把算力冗余做到 8 倍也要把软件栈全握在自己手里。</p>
+
+<!-- ============ 贰 ============ -->
+<div class="sec"><span class="num">贰</span><span class="t">镜像：休斯 vs 昇腾，同一道题的两个解法</span></div>
+
+<p>把上期的休斯和这期的昇腾放一起看，能看到一组干净的对照。</p>
+
+<div class="mirror-card">
+  <div class="col h">
+    <span class="tag">休斯 · 死于系统</span>
+    <h4>看得到，躲不过</h4>
+    <div class="li">2021 年为 OneWeb 低轨造设备——<b>摸到了颠覆者</b></div>
+    <div class="li">却把 JUPITER 3 押在被淘汰的 GEO 消费宽带</div>
+    <div class="li">被三把锁锁死：<b>资本锁 / 沉没成本锁 / 心智锁</b></div>
+    <div class="li">硬件不弱，输在系统内的决策锁死</div>
+  </div>
+  <div class="col a">
+    <span class="tag">昇腾 · 生于系统</span>
+    <h4>单点落后，全栈补回</h4>
+    <div class="li">单芯片 8 倍冗余 vs 英伟达 32 倍——<b>硬件落后</b></div>
+    <div class="li">靠全栈软硬件协同 + 集群组网补回来</div>
+    <div class="li">每年 70 颗投片几乎无故障——<b>跨层工程纪律</b></div>
+    <div class="li">硬件弱不是借口，是逼自己贯通 18 层的压力</div>
+  </div>
+</div>
+
+<p>廖恒有句比喻很到位：</p>
+<div class="quote">"英伟达 Blackwell 有 32 倍 CUDA 冗余算力，昇腾只有 8 倍。就像住大别墅 vs 挤几十平公寓，每一平都得精打细算。"<span class="src">—— 廖恒</span></div>
+
+<p>这句话表面在讲算力冗余，其实讲的是<strong class="k">系统压力倒逼工程纪律</strong>。住大别墅的人随手乱放也能过日子；挤公寓的人每件东西都得有它的位置。<strong class="k">硬件落后不可怕，可怕的是硬件落后时，还把"硬件落后"当不作为的借口。</strong>昇腾把落后变成了逼自己贯通 18 层的那根鞭子。</p>
+
+<p>所以那句"70 颗投片几乎无重大故障，全球半导体行业罕见"，不是奇迹。这是<strong class="k">把短板定律当工作方法</strong>的结果——每一层都假设它会出问题，每一层都从最坏处往上推。</p>
+
+<!-- ============ 叁 ============ -->
+<div class="sec"><span class="num">叁</span><span class="t">梁文锋的逆向选择：稀缺的不是算力，是敢说不的人</span></div>
+
+<p>访谈里最动情的一段，是廖恒给 DeepSeek 梁文锋的掌声。</p>
+
+<p>背景是这样的：过去几年，全行业都在崇拜 Scaling Law——把参数堆大、把算力堆高、把模型做大。所有人都在同一条赛道上比谁跑得快。然后梁文锋做了一个反着来的选择：<strong class="k">主动放弃全量参数堆叠，走稀疏激活路线，只算三十二分之一。</strong></p>
+
+<div class="stat-row">
+  <div class="stat"><div class="n">1/32</div><div class="l">稀疏激活，只算高价值 Token</div></div>
+  <div class="stat"><div class="n g">×32</div><div class="l">节约算力与缓存倍数</div></div>
+  <div class="stat"><div class="n b">5 年</div><div class="l">提前预判算力瓶颈</div></div>
+</div>
+
+<p>廖恒给他的评价不是"算法聪明"，而是：<strong class="k">"他有意识地选择了更高的复杂性、更难的收敛算法。这种能跨层协同的人才，就像一根线，把很多珍珠串成项链。"</strong></p>
+
+<p>这句话的重点不在梁文锋，在那根"线"。<strong class="k">中国 AI 真正稀缺的不是算力，不是参数，是这种敢在全行业崇拜一个范式时、主动选另一条更难的路的人。</p>
+
+<p>而且——注意这条对照线——<strong class="k">休斯是看到了没做到；梁文锋是看到了也做到了。</strong>上一期我们说休斯"看得到趋势不等于躲得过"，梁文锋就是那个把"看到"和"做到"接起来的反例。他不是没看见 Scaling Law 的红利，他是看见了红利、也看见了红利见顶的那一天，然后提前五年布局。</p>
+
+<div class="pull">
+  给梁文锋的掌声，不是给一个成功的创业者，是给一个"先验者"——提前五年预判算力瓶颈，主动布局解决预期中的问题。
+  <span class="src">—— 廖恒对梁文锋的评价</span>
+</div>
+
+<!-- ============ 肆 ============ -->
+<div class="sec"><span class="num">肆</span><span class="t">英伟达的天花板：不是谁要完，是范式见顶了</span></div>
+
+<p>讲完昇腾，廖恒对英伟达路线的判断也很冷。</p>
+
+<div class="quote">"做大芯片、提高机柜密度"这条路线，最多延续 2-3 代。<span class="src">—— 廖恒，英伟达路线天花板</span></div>
+
+<p>他的拆解有两层。</p>
+<p>芯片层面：<strong class="k">数据传输、供电、内存交互的通路拓宽速度，跟不上计算面积扩张。</strong>他自己一句话讲透——"厂房扩建了，道路没拓宽。"</p>
+<p>机柜层面：算力密度越高，供电和散热压力越大。还有一个挂在墙上的炸弹——HBM。AI 行业竞相上更大容量 HBM，他判断"一旦越过临界点，是雪崩式后果"。</p>
+<p>更有意思的一条：<strong class="k">推理瓶颈不在算力，在内存墙</strong>。每生成一个 Token 都要从内存读参数，瓶颈是数据传输速度而非计算速度。这意味着单纯把 GPU 芯片做大、把算力规格堆高，边际收益会越来越低。</p>
+
+<div class="vs3">
+  <div class="blk h"><b>休斯的三把锁（上期）</b>资本锁 · 沉没成本锁 · 组织心智锁——锁在系统内，熬不过时间</div>
+  <div class="blk a"><b>英伟达的三道墙（本期）</b>传输通路墙 · 供电散热墙 · 内存墙——堆不动单点算力</div>
+</div>
+
+<p>但请注意，廖恒没说英伟达要完。他说的是<strong class="k">"靠单芯片堆算力"这条范式见顶了</strong>。这是一个很关键的区分——<strong class="w">范式见顶 ≠ 公司要死</strong>。英伟达很可能还会强很多年，但"靠单芯片规格堆叠赢下整座塔"的时代，要收尾了。下一轮的胜负手，不在芯片那一层，在系统那一层。</p>
+
+<p>这正好把第二期和第一期接上了：休斯死于系统失配，英伟达的天花板也是系统层面的——单点强到极致，但周边通路跟不上。<strong class="k">系统问题，永远不能用单点方案解决。</strong></p>
+
+<!-- ============ 伍 ============ -->
+<div class="sec"><span class="num">伍</span><span class="t">廖恒的三次误判：不是自谦，是方法论</span></div>
+
+<p>访谈后半段，廖恒自陈三次重大误判。</p>
+
+<div class="timeline">
+  <div class="t"><span class="yr">误判一</span><span class="d">反对做鲲鹏 ARM 服务器 CPU。认为 x86 生态太强。结果 ARM 服务器正逐步抢占市场。</span></div>
+  <div class="t"><span class="yr">误判二</span><span class="d">反对昇腾做训练卡。认为训练市场太小，推理才是大生意。结果数据中心规模远超预期。</span></div>
+  <div class="t"><span class="yr">误判三</span><span class="d">低估了数据中心未来爆发式的算力需求。</span></div>
+</div>
+
+<p>然后他讲了一句面试自述——也是整场访谈里我最想留给你们的一句：</p>
+<div class="quote">"我成功的经历不多，失败的经历倒不少，可以告诉你哪些路走不通。"<span class="src">—— 廖恒，面试自述</span></div>
+
+<p>这不是自谦。这是方法论。</p>
+<p>廖恒所有新项目的第一反应，是<strong class="k">"假设它会失败"</strong>，然后从底线向上推演。这恰恰是休斯案例里最缺的东西——休斯是在阳光明媚时不肯承认冬天会来；廖恒是每次都先假设冬天已经来了，再问自己怎么活下来。</p>
+
+<p><strong class="k">在范式转移期，一个看多者的乐观，不如一个看空者的谨慎。</strong>前者会让你把最好的资源押在被淘汰的方向上；后者逼你把每一层都做成不依赖单点的样子。廖恒的三次误判，最后都变成了昇腾的反向校准——因为他每次都把"我可能错"写进了下一轮的工程假设里。</p>
+
+<p>这就是 18 层宝塔的真正用法：不是吹哪一层做到了世界第一，是<strong class="k">把"哪一层可能是短板"当成日常的工作问题</strong>，一层一层往最差处加固。</p>
+
+<!-- ============ 结语 ============ -->
+<div class="end">
+  <b>18 层宝塔不是悲观主义。</b>它只是说，单点突破的时代结束了。<br><br>
+  休斯告诉我们，看得到趋势不等于躲得过；昇腾告诉我们，单点落后不等于输。<br>
+  差别只在，你能不能贯通自己那 18 层——能不能把短板定律，当工作方法，而不是事后总结。<br><br>
+  <b>下一张牌桌上，赢家不是那个某层最强的，是那个 18 层都不掉队的。</b>
+  <div class="sig">—— 这，就是「星海 Notes」想和你一起训练的第二只眼睛。</div>
+</div>
+
+<div class="footer">
+  星海 Notes · 第二期（修订版）<br>
+  事实来源：廖恒访谈核心观点整理（电子工程专辑 / 新浪财经 / 经济观察网 / 半导体产业网 等多源公开报道综合）；昇腾发展史与廖恒职位经公开资料交叉核对；观点为 dhow 基于访谈的二次解读，不代表受访者立场。<br>
+  专题完整版（含信息图 / PDF / 短视频）：notes.dhow.ink
+</div>
+
+</div>
+<style>.xh-back{position:fixed;left:18px;bottom:18px;z-index:9999;background:rgba(4,6,11,.85);color:#e8e6df;border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:8px 18px;font-size:13px;text-decoration:none;backdrop-filter:blur(6px);font-family:"PingFang SC","Microsoft YaHei",sans-serif}.xh-back:hover{color:#c9a86a}</style><a class="xh-back" href="../index.html">✦ 星海 Notes 首页</a>
+</body>
+</html>
