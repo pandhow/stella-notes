@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>星海 Notes 创刊号 · 休斯破产：一场早被写进剧本的落幕</title>
+<style>
+  :root{
+    --bg:#eef1f7; --card:#ffffff; --ink:#1f2733; --sub:#5b6675; --line:#dde3ef;
+    --deep:#0c1b33; --deep2:#13294d; --accent:#2f6bff; --warn:#e0533a; --gold:#c9a14a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:-apple-system,"PingFang SC","Microsoft YaHei",Helvetica,Arial,sans-serif;line-height:1.85;font-size:17px;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:760px;margin:0 auto;padding:0 20px 80px}
+  /* cover */
+  .cover{background:linear-gradient(160deg,var(--deep),var(--deep2));color:#fff;border-radius:0 0 24px 24px;padding:46px 30px 40px;margin-bottom:34px;position:relative;overflow:hidden}
+  .cover .badge{display:inline-block;font-size:12px;letter-spacing:3px;color:var(--gold);border:1px solid rgba(201,161,74,.6);border-radius:999px;padding:5px 14px;margin-bottom:18px}
+  .cover h1{font-size:30px;line-height:1.35;font-weight:800;margin-bottom:14px}
+  .cover .lead{font-size:15px;color:#c7d2e6;line-height:1.7}
+  .cover .meta{margin-top:22px;display:flex;gap:14px;flex-wrap:wrap;font-size:12.5px;color:#9fb0cc}
+  .cover .meta span{background:rgba(255,255,255,.08);padding:5px 11px;border-radius:8px}
+  .kicker{font-size:13px;color:var(--accent);font-weight:700;letter-spacing:1px;margin:38px 0 10px}
+  h2{font-size:22px;font-weight:800;margin:34px 0 14px;padding-left:13px;border-left:4px solid var(--accent)}
+  h3{font-size:18px;font-weight:700;margin:24px 0 8px;color:var(--deep2)}
+  p{margin:14px 0;color:var(--ink)}
+  .sub{color:var(--sub)}
+  .quote{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:12px;padding:18px 20px;margin:22px 0;font-size:16px;color:var(--deep2);font-style:italic}
+  .quote .src{display:block;margin-top:8px;font-size:13px;color:var(--sub);font-style:normal}
+  .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:24px 0}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 14px;text-align:center}
+  .stat .n{font-size:26px;font-weight:800;color:var(--warn)}
+  .stat .l{font-size:12.5px;color:var(--sub);margin-top:4px}
+  table{width:100%;border-collapse:collapse;margin:22px 0;background:var(--card);border-radius:12px;overflow:hidden;font-size:15px}
+  th,td{border:1px solid var(--line);padding:11px 13px;text-align:left}
+  th{background:#f3f6fc;color:var(--deep2);font-weight:700}
+  td.y{color:var(--warn);font-weight:700}
+  .timeline{position:relative;margin:26px 0 10px;padding-left:22px}
+  .timeline:before{content:"";position:absolute;left:6px;top:4px;bottom:4px;width:2px;background:var(--line)}
+  .timeline .t{position:relative;margin:0 0 18px}
+  .timeline .t:before{content:"";position:absolute;left:-19px;top:6px;width:11px;height:11px;border-radius:50%;background:var(--accent);border:2px solid #fff;box-shadow:0 0 0 2px var(--accent)}
+  .timeline .t .yr{font-weight:800;color:var(--deep2)}
+  .timeline .t.red:before{background:var(--warn);box-shadow:0 0 0 2px var(--warn)}
+  .tag{display:inline-block;font-size:12px;padding:2px 9px;border-radius:6px;background:#eaf0ff;color:var(--accent);margin-right:6px}
+  .lock{background:#fff6f3;border:1px solid #f3d4cb;border-radius:12px;padding:16px 18px;margin:14px 0}
+  .lock b{color:var(--warn)}
+  .end{margin-top:40px;padding:24px;background:var(--deep);color:#dbe4f3;border-radius:16px;font-size:16px;line-height:1.8}
+  .end b{color:var(--gold)}
+  .footer{margin-top:30px;font-size:12.5px;color:var(--sub);text-align:center}
+  .chart{max-width:560px;margin:22px auto}
+  @media(max-width:600px){.stat-row{grid-template-columns:1fr}.cover h1{font-size:24px}}
+</style>
+<meta name="description" content="50 年 VSAT 先驱，2023 年刚把全球最大通信卫星送上天，2026 年 8 月却走进破产法庭。这不是黑天鹅——而是一场趋势早已剧透的谢幕。">
+<meta name="keywords" content="航天,产业观察">
+<link rel="canonical" href="https://stella.dhow.ink/posts/hughes-chapter11.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="星海 Notes">
+<meta property="og:title" content="休斯破产：一场早被写进剧本的落幕">
+<meta property="og:description" content="50 年 VSAT 先驱，2023 年刚把全球最大通信卫星送上天，2026 年 8 月却走进破产法庭。这不是黑天鹅——而是一场趋势早已剧透的谢幕。">
+<meta property="og:url" content="https://stella.dhow.ink/posts/hughes-chapter11.html">
+<meta property="og:image" content="https://stella.dhow.ink/assets/img/features/cover-hughes.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="休斯破产：一场早被写进剧本的落幕">
+<meta name="twitter:description" content="50 年 VSAT 先驱，2023 年刚把全球最大通信卫星送上天，2026 年 8 月却走进破产法庭。这不是黑天鹅——而是一场趋势早已剧透的谢幕。">
+<meta name="twitter:image" content="https://stella.dhow.ink/assets/img/features/cover-hughes.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "休斯破产：一场早被写进剧本的落幕", "description": "50 年 VSAT 先驱，2023 年刚把全球最大通信卫星送上天，2026 年 8 月却走进破产法庭。这不是黑天鹅——而是一场趋势早已剧透的谢幕。", "datePublished": "2026-08-05", "author": {"@type": "Person", "name": "dhow"}, "mainEntityOfPage": "https://stella.dhow.ink/posts/hughes-chapter11.html", "keywords": "航天,产业观察"}</script>
+</head>
+<body>
+<div class="cover">
+  <div class="badge">星海 NOTES · 创刊号</div>
+  <h1>休斯破产：<br>一场早被写进剧本的落幕</h1>
+  <div class="lead">50 年 VSAT 先驱，2023 年刚把全球最大通信卫星送上天，2026 年 8 月却走进破产法庭。这不是黑天鹅——而是一场趋势早已剧透的谢幕。</div>
+  <div class="meta">
+    <span>选题：Hughes / 休斯卫星系统</span>
+    <span>角度：行业趋势的可预测性</span>
+    <span>2026-08-05</span>
+  </div>
+</div>
+
+<div class="wrap">
+
+<p class="sub">1971 年，7 名年轻工程师在简陋车库里创立 Digital Communication Corp（DCC），后来并入休斯家族，成为休斯网络系统公司（Hughes Network Systems）。半个世纪后，这家"发明卫星互联网"的公司，在 2026 年 8 月初申请了 Chapter 11 破产保护。</p>
+
+<p>本期的核心不是"又一家老牌企业倒下"的唏嘘，而是一个更锋利的问题：<b>这场崩塌，究竟有多可预测？</b>我的结论是——它的每一个领先指标，早在数年前就已全部亮红灯。休斯不是输给技术，而是输给了"看得到趋势，却躲不过时间错配与心智惯性"。</p>
+
+<h2>一、辉煌：发明卫星互联网的男人</h2>
+<p>在它倒下之前，休斯曾是卫星通信史的代名词。它自己总结的"半个世纪五大创举"，每一项都曾是行业里程碑：</p>
+<div class="timeline">
+  <div class="t"><span class="yr">1985</span> · 与斯伦贝谢合作开发全球第一套 Ku 波段 VSAT，并为 Wal-Mart 建成全球首个商用 VSAT 网络——甚小口径终端时代的开启者。</div>
+  <div class="t"><span class="yr">1996</span> · 推出 DirecPC，<b>发明卫星互联网</b>，第一个商业卫星宽带服务平台。</div>
+  <div class="t"><span class="yr">持续演进</span> · JUPITER 系统成为全球 HTS（高通量卫星）应用最广的地面关口站系统，在 40 多颗卫星下运行，自研 SoC 已到第三代。</div>
+  <div class="t"><span class="yr">2021</span> · 50 周年之际，休斯骄傲宣布：<b>为 OneWeb 低轨星座研发生产关口站系统与核心终端模块</b>，要把低轨通信作为 JUPITER 的补充。</div>
+</div>
+<div class="quote">"不断创新是休斯的基因，休斯在不断挑战一切可能的极限。"<span class="src">—— 休斯官方公众号《休斯半个世纪公司历史的 5 个主要创举》（2021-02-05）</span></div>
+<p class="sub">注意最后一条。2021 年，休斯就在亲手为低轨星座造设备——它比世界上绝大多数人都更早摸到了那场颠覆。讽刺的是，正是这场它参与建设的低轨革命，在五年后埋葬了它的消费宽带主业。</p>
+
+<h2>二、崩塌：一条干净到可怕的曲线</h2>
+<p>崩塌没有悬念，数字是一条单调、加速向下的直线：</p>
+<div class="stat-row">
+  <div class="stat"><div class="n">156万</div><div class="l">2020 年底宽带用户</div></div>
+  <div class="stat"><div class="n">68万→64万</div><div class="l">2026 年（Q1→8月）</div></div>
+  <div class="stat"><div class="n">−59%</div><div class="l">累计流失</div></div>
+</div>
+<div class="chart">
+<svg viewBox="0 0 560 230" width="100%" xmlns="http://www.w3.org/2000/svg" font-family="sans-serif">
+  <line x1="50" y1="20" x2="50" y2="195" stroke="#c5cedd" stroke-width="1.5"/>
+  <line x1="50" y1="195" x2="540" y2="195" stroke="#c5cedd" stroke-width="1.5"/>
+  <polyline points="50,30 150,55 250,95 350,135 450,168 540,182" fill="none" stroke="#e0533a" stroke-width="3"/>
+  <circle cx="50" cy="30" r="4" fill="#e0533a"/><circle cx="150" cy="55" r="4" fill="#e0533a"/><circle cx="250" cy="95" r="4" fill="#e0533a"/><circle cx="350" cy="135" r="4" fill="#e0533a"/><circle cx="450" cy="168" r="4" fill="#e0533a"/><circle cx="540" cy="182" r="4" fill="#e0533a"/>
+  <text x="50" y="18" font-size="11" fill="#5b6675" text-anchor="middle">156万</text>
+  <text x="450" y="185" font-size="11" fill="#5b6675" text-anchor="middle">64万</text>
+  <text x="50" y="212" font-size="11" fill="#5b6675" text-anchor="middle">2020</text>
+  <text x="150" y="212" font-size="11" fill="#5b6675" text-anchor="middle">2021</text>
+  <text x="250" y="212" font-size="11" fill="#5b6675" text-anchor="middle">2022</text>
+  <text x="350" y="212" font-size="11" fill="#5b6675" text-anchor="middle">2023</text>
+  <text x="450" y="212" font-size="11" fill="#5b6675" text-anchor="middle">2026Q1</text>
+  <text x="538" y="212" font-size="11" fill="#5b6675" text-anchor="end">2026.8</text>
+</svg>
+</div>
+<table>
+  <tr><th>指标</th><th>数值</th><th>信号</th></tr>
+  <tr><td>宽带用户</td><td>156万（2020）→ 64万（2026.8）</td><td class="y">累计 −58.9%</td></tr>
+  <tr><td>2025 单年用户降幅</td><td>−21.7%</td><td class="y">加速流失</td></tr>
+  <tr><td>FY2025 净亏损</td><td>&gt; 12.7 亿美元</td><td class="y">盈利崩塌</td></tr>
+  <tr><td>总债务 / 到期票据</td><td>15 亿美元（8/1 到期）</td><td class="y">流动性枯竭</td></tr>
+  <tr><td>账面现金（2026.3）</td><td>约 1.02 亿美元</td><td class="y">无法兑付</td></tr>
+</table>
+<p>2026 年 8 月 1 日，约 15 亿美元票据到期，账面仅约 1 亿美元现金——两周内，休斯走进破产法庭。卫星仍在轨，服务未停，但一家 50 年企业的消费宽带叙事，到此为止。</p>
+
+<h2>三、核心论点：行业趋势的可预测性</h2>
+<p>如果把"休斯为何死"简化为"星链太强"，那就错过了最有价值的一课。真正值得记取的，是<b>这场死亡在数年前就已可预测</b>。三个领先指标，红灯亮得清清楚楚：</p>
+
+<h3>1. 物理不可逆：这是轨道力学，不是产品缺陷</h3>
+<p>GEO 卫星距地 3.6 万公里，固有时延约 <b>600 毫秒</b>；以星链为代表的 LEO 星座把时延压到 <b>20–40 毫秒</b>，网速比肩地面宽带。这不是休斯工程团队能"优化"掉的短板——它是地球半径决定的。2020 年星链一上天，消费者用脚投票的结局就已注定。</p>
+
+<h3>2. 成本曲线：规模效应碾压</h3>
+<p>LEO 星座的批量制造与发射，把单位带宽成本一路打到地面宽带水平。休斯首席重组官 Robert del Genio 自己承认：</p>
+<div class="quote">"来自低轨 LEO 卫星的竞争是<b>结构性的，而不是周期性的</b>；竞争对手正在不断扩大覆盖范围并降低成本。"<span class="src">—— Robert del Genio，休斯首席重组官（CRO）</span></div>
+
+<h3>3. 行为数据：一条任何人都能提前画出的曲线</h3>
+<p>用户流失是<b>单调且加速</b>的。任何愿意读休斯母公司 EchoStar 季度 10-Q 的人，都能在 2020 年之后逐年画出这条下行线，并提前 3–5 年预判今天的结局。趋势从不藏在暗处，它写在每一份公开财报里。</p>
+
+<div class="quote">"公司预计这一趋势不会逆转。"<span class="src">—— Robert del Genio，对流失趋势的判断</span></div>
+
+<h2>四、为什么"看得到"却"躲不过"：三把锁</h2>
+<p>最讽刺的真相是：<b>休斯早在 2021 年就看到了趋势</b>（它为 OneWeb 造低轨设备），却把最先进的 JUPITER 3（2023 年发射，容量 500+Gbps）押在了正在被淘汰的 GEO 消费宽带上。看到 ≠ 做到。卡住它的，是三把锁：</p>
+<div class="lock"><b>资本锁</b>：15 亿美元债务到期日，卡在技术替代周期之前。再好的战略，也熬不过一张到期的票据。</div>
+<div class="lock"><b>沉没成本锁</b>：刚打上天的 JUPITER 3 不是资产，是包袱——它为已经没人想要的容量买单。</div>
+<div class="lock"><b>组织心智锁</b>：创新基因在错误的框架里空转——持续优化 GEO，而市场早已转向 LEO。</div>
+
+<h2>五、对中国的启示：把"可预测性"变成纪律</h2>
+<p>休斯的剧本，对中国卫星企业是一面镜子。星网（GW）、亚太卫星、中星系列，正处在这场 GEO→LEO 代际转换的同一赛道上。三条可落地的纪律：</p>
+<p><span class="tag">纪律一</span><b>别重演押注陷阱</b>。GEO→LEO 是肉眼可见的 mega-trend。重金押 GEO 消费宽带、期待靠一颗大卫星翻盘，是休斯用破产买的教训。</p>
+<p><span class="tag">纪律二</span><b>盯领先指标，别等利润表逼你转向</b>。流失率、时延/成本平价、对手星座部署节奏——这些才是早期信号。趋势可预测性，本质是一种"提前看、提前动"的纪律。</p>
+<p><span class="tag">纪律三</span><b>摸到了颠覆者，就要"成为它"或"绕开它"，而不是"给它供货"</b>。2021 年的休斯给 OneWeb 造设备，赚的是辛苦钱，丢的是未来。当你已经站在颠覆的边缘，最危险的姿势是做它的供应商。</p>
+<p><span class="tag">纪律四</span><b>资本结构要匹配技术周期</b>。债务久期，别短于颠覆发生的时长。否则技术没输，账先爆了。</p>
+
+<div class="end">
+<b>结语</b><br>
+休斯没输给技术，它输给了时间错配与心智惯性。一场 50 年巨头的解体，轨迹干净得近乎残忍——所有信号都早已亮起，只是没人愿意在阳光明媚时承认冬天会来。<br><br>
+<b>行业趋势从不突然。突然的，只是没在看的人。</b><br>
+—— 这，就是「星海 Notes」想和你一起训练的眼睛。
+</div>
+
+<div class="footer">星海 Notes · 首期 · 事实来源：休斯官方公众号（2021-02-05）、angmobile《卫星巨头，宣布破产！》、EchoStar/SatNews/Reuters 等多源公开报道，已交叉核对。数据口径以最新公开披露为准。</div>
+</div>
+<style>.xh-back{position:fixed;left:18px;bottom:18px;z-index:9999;background:rgba(4,6,11,.85);color:#e8e6df;border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:8px 18px;font-size:13px;text-decoration:none;backdrop-filter:blur(6px);font-family:"PingFang SC","Microsoft YaHei",sans-serif}.xh-back:hover{color:#c9a86a}</style><a class="xh-back" href="../index.html">✦ 星海 Notes 首页</a>
+</body>
+</html>
